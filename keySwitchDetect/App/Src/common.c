@@ -36,6 +36,7 @@ void tim_interrupt_callback(void)
 		
 	for(int i=0;i<DEV_NUM;i++){
 		if(myDevice.devCtrl[i].ledFlashCnt > 0)	myDevice.devCtrl[i].ledFlashCnt --;
+		if(myDevice.devCtrl[i].outStateInitTime > 0) myDevice.devCtrl[i].outStateInitTime --;
 	}
 }
 

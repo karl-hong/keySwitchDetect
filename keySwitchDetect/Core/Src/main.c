@@ -112,11 +112,11 @@ int main(void)
     /* USER CODE BEGIN 3 */
 		MX_IWDG_Refresh();
 		user_protocol_handle();
-		user_reply_handle();
 		user_huart_error_check();
 		auto_check_task();
 		user_check_device_status();
 		user_led_task();
+		user_reply_handle();
   }
   /* USER CODE END 3 */
 }

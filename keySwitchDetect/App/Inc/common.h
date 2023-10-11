@@ -12,6 +12,7 @@
 #define DELAY_BASE                  (10)//100ms*10 = 1s
 #define FLASH_FREQ                  (200)//ms
 #define AUTO_CHECK                  (100)//100*1ms
+#define DEFAULT_OUT_INIT_TIME		(1000)//ms
 
 
 #define DEV_NUM						(20)
@@ -76,7 +77,7 @@ typedef struct {
 	uint8_t outState;
 	uint8_t lastOutState;
 	uint8_t outCnt;
-	uint8_t outStateInitFlag;
+	uint16_t outStateInitTime;
 	uint8_t flashStatus;
 	uint8_t send;
 	uint8_t port;

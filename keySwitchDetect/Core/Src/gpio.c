@@ -249,23 +249,22 @@ void user_check_device_status(void)
 	for(int i=0;i<DEV_NUM;i++){
 		myDevice.devCtrl[i].port = i;
 
-		myDevice.devCtrl[i].lastOutState = user_get_input(i);
+		myDevice.devCtrl[i].lastOutState = !user_get_input(i);
 
 		if(myDevice.devCtrl[i].outState != myDevice.devCtrl[i].lastOutState){
 			
 			myDevice.devCtrl[i].outCnt ++;
 			
-			if(myDevice.devCtrl[i].outCnt >= 5){
+			if(myDevice.devCtrl[i].outCnt >= 100){
 				myDevice.devCtrl[i].outState = myDevice.devCtrl[i].lastOutState;
 					
-				if(myDevice.autoReportFlag && myDevice.devCtrl[i].outStateInitFlag){
+				if(myDevice.autoReportFlag && !myDevice.devCtrl[i].outStateInitTime){
 					myDevice.cmdControl.autoAlarm.sendCmdEnable = CMD_ENABLE;
 					myDevice.cmdControl.autoAlarm.sendCmdDelay = 0;
 					myDevice.repCtrl[i].enable = CMD_ENABLE;
 					myDevice.repCtrl[i].type = myDevice.devCtrl[i].outState;
 				}
 				
-				myDevice.devCtrl[i].outStateInitFlag = 1;
 				myDevice.devCtrl[i].outCnt = 0;
 			}	
 		}else{
@@ -315,9 +314,11 @@ static void led_auto_mode(dev_ctrl_t *dev_ctr)
 	if(dev_ctr->outState){
 		/* 设备在位*/
 		user_set_output(dev_ctr->port, LED_GREEN_ON);
+		dev_ctr->ledState = LED_STATE_GREEN_ON;
 	}else{
 		/* 设备不在�? */
 		user_set_output(dev_ctr->port, LED_RED_ON);
+		dev_ctr->ledState = LED_STATE_RED_ON;
 	}
 }
 
