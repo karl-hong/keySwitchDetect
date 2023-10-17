@@ -431,6 +431,7 @@ void onReportSetSingleLedState(void)
     uint8_t pos = 0;
     uint8_t port = 0;
 	while(1){
+		pos = 0;
 		if(myDevice.devCtrl[port].send == CMD_DISABLE){
 			port ++;
 			if(port >= DEV_NUM) 
@@ -509,6 +510,7 @@ void onReportAlarmType(void)
     uint8_t pos = 0;
 	uint8_t port = 0;
 	while(1){
+		pos = 0;
 		if(myDevice.repCtrl[port].enable){
 			/* address */
 		    buffer[pos++] = myDevice.address;
@@ -533,6 +535,7 @@ void onReportAlarmType(void)
 		    buffer[pos++] = myDevice.uid2 & 0xff;
 
 		    user_protocol_send_data(CMD_QUERY, OPT_CODE_REPORT_DEV_ALARM, buffer, pos);  
+			myDevice.repCtrl[port].enable = CMD_DISABLE;
 		}
 		port ++;
 		if(port >= DEV_NUM) return;
