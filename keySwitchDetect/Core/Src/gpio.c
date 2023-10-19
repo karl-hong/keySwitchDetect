@@ -249,7 +249,7 @@ void user_check_device_status(void)
 	for(int i=0;i<DEV_NUM;i++){
 		myDevice.devCtrl[i].port = i;
 
-		myDevice.devCtrl[i].lastOutState = !user_get_input(i);
+		myDevice.devCtrl[i].lastOutState = user_get_input(i);
 
 		if(myDevice.devCtrl[i].outState != myDevice.devCtrl[i].lastOutState){
 			
